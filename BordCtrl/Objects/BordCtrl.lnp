@@ -1,0 +1,7 @@
+".\Objects\main.obj",
+".\Objects\IIC.obj",
+".\Objects\IAP.obj",
+".\Objects\PWM.obj",
+".\Objects\DRIVES.obj" 
+TO ".\Objects\BordCtrl" 
+PRINT(".\Listings\BordCtrl.m51") RAMSIZE(256) 

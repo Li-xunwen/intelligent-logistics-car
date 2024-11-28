@@ -1,0 +1,84 @@
+C51 COMPILER V9.60.7.0   DRIVES                                                            11/12/2024 01:35:36 PAGE 1   
+
+
+C51 COMPILER V9.60.7.0, COMPILATION OF MODULE DRIVES
+OBJECT MODULE PLACED IN .\Objects\DRIVES.obj
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.EXE DRIVES.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\Listings\DR
+                    -IVES.lst) OBJECT(.\Objects\DRIVES.obj)
+
+line level    source
+
+   1          #include "DRIVES.h"
+   2          extern unsigned char xdata buffer[64];
+   3          unsigned char Time=0;
+   4          unsigned int MotorA1=0;
+   5          unsigned int MotorA2=0;
+   6          unsigned int MotorB1=0;
+   7          unsigned int MotorB2=0;
+   8          void Timer0_Isr(void) interrupt 1
+   9          {
+  10   1       if(buffer[9]>0) { breaks(buffer[9]); return ;  }                     
+  11   1       if(MotorA1<=buffer[5]*4)PWM1(MotorA1++);else PWM1(MotorA1=buffer[5]*4);
+  12   1       if(MotorA2<=buffer[6]*4)PWM2(MotorA2++);else PWM2(MotorA2=buffer[6]*4);
+  13   1       if(MotorB1<=buffer[7]*4)PWM3(MotorB1++);else PWM3(MotorB1=buffer[7]*4);
+  14   1       if(MotorB2<=buffer[8]*4)PWM4(MotorB2++);else PWM4(MotorB2=buffer[8]*4);
+  15   1       
+  16   1      }
+  17          
+  18          
+  19          
+  20          void Timer0_Init(void)          //4000微秒@12.000MHz
+  21          {
+  22   1              AUXR &= 0x7F;                   //定时器时钟12T模式
+  23   1              TMOD &= 0xF0;                   //设置定时器模式
+  24   1              TL0 = 0x60;                             //设置定时初始值
+  25   1              TH0 = 0xF0;                             //设置定时初始值
+  26   1              TF0 = 0;                                //清除TF0标志
+  27   1              TR0 = 1;                                //定时器0开始计时
+  28   1              ET0 = 1;                                //使能定时器0中断
+  29   1      }
+  30          
+  31          
+  32          void breaks(unsigned char NUM)
+  33          {
+  34   1       PWM1(255-NUM);
+  35   1       PWM2(255-NUM);
+  36   1       PWM3(255-NUM);
+  37   1       PWM4(255-NUM);
+  38   1      }
+  39          void ServoA(unsigned char  angle)
+  40          {
+  41   1       PWM5(256*angle);
+  42   1       
+  43   1      }
+  44          void ServoB(unsigned char  angle)
+  45          {
+  46   1       PWM6(256*angle);
+  47   1       
+  48   1      }
+  49          void ServoC(unsigned char  angle)
+  50          {
+  51   1       PWM7(256*angle);
+  52   1       
+  53   1      }
+  54          void ServoD(unsigned char  angle)
+C51 COMPILER V9.60.7.0   DRIVES                                                            11/12/2024 01:35:36 PAGE 2   
+
+  55          {
+  56   1       PWM8(256*angle);
+  57   1       
+  58   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    376    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =      9       1
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
