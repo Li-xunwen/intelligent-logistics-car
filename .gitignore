@@ -1,0 +1,29 @@
+# .gitignore
+# Ignore the user-specific GUI settings  file
+Listings/
+Objects/
+*.uvgui.*
+*.uvopt
+*.o
+*.obj
+*.elf
+*.hex
+*.bin
+*.map
+*.lnk
+*.cmd
+*.bak
+*.tmp
+*.d
+*.dep
+*.sdf
+*.srec
+*.lss
+*.sym
+*.lib
+*.a
+*.pdb
+*.dll
+*.exe
+*.out
+*.log
